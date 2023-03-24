@@ -7,16 +7,18 @@ using System.Reflection.Emit;
 
 namespace JobNetCore6.Entities
 {
-    public class AppDBContext : IdentityDbContext<IdentityUser>
+    public class AppDBContext : IdentityDbContext<AppUser>
     {
         public AppDBContext(DbContextOptions<AppDBContext> options) : base(options)
         {
         }
         public DbSet<Category>? Categories { get; set; }
         public DbSet<Job>? Jobs { get; set; }
+        public DbSet<AppUser>? AppUsers{get; set;}
+    
 
 
-        protected override void OnModelCreating(ModelBuilder modelBuilder)
+    protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
             modelBuilder.Entity<Category>().HasData(

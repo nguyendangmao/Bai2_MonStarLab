@@ -1,7 +1,9 @@
-﻿using JobNetCore6.Core.Models;
+﻿using Castle.Core.Internal;
+using JobNetCore6.Core.Models;
 using JobNetCore6.Entities;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
+using System.Xml.Linq;
 
 namespace JobNetCore6.Repository
 {
@@ -17,7 +19,7 @@ namespace JobNetCore6.Repository
              await _context.SaveChangesAsync();
         }
 
-        public async Task DeleteAsync(int idJob)
+        public async Task<int> DeleteAsync(int idJob)
         {
             var delete = _context.Jobs!.SingleOrDefault(b => b.Id == idJob);
             if (delete != null)
@@ -25,11 +27,12 @@ namespace JobNetCore6.Repository
                 _context.Jobs!.Remove(delete);
                 await _context.SaveChangesAsync();
             }
+            return delete.Id;
         }
 
         public async Task<IEnumerable<Job>> GetAllAsync()
         {
-            return await   _context.Jobs!.ToListAsync();
+            return await   _context.Jobs!.Include(n=>n.Category).ToListAsync();
         }
 
         public async Task<Job> GetByIdAsync(int id)
@@ -38,10 +41,10 @@ namespace JobNetCore6.Repository
             return getbyid!;
         }
 
-        public  async Task<IEnumerable<Job>> GetByStatusDateStatusAsync(bool status, DateTime dateStart)
+        public async Task<IEnumerable<Job>> GetByStatusDateStatusAsync(bool status, DateTime dateStart)
         {
-            return  await _context.Jobs!.Where(n=>n.Status==status || n.DateStart == dateStart).ToArrayAsync();
-       
+            return await _context.Jobs!.Where(n => n.Status.Equals( status) || n.DateStart.Equals( dateStart)).OrderBy(n=>n.DateStart).ToArrayAsync();
+
         }
 
         public async Task UpdateAsync(Job job)
@@ -52,10 +55,8 @@ namespace JobNetCore6.Repository
 
         public async Task AddListJob(IEnumerable<Job> job)
         {
-          
                 await _context.Jobs!.AddRangeAsync(job);
                 await _context.SaveChangesAsync();
-                                            
         }
 
         public async Task UpdateListJob(IEnumerable<Job> job)

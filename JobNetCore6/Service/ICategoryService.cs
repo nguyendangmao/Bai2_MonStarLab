@@ -1,5 +1,8 @@
-﻿using JobNetCore6.Core.Models;
+﻿
+using JobNetCore6.Core.Models;
 using JobNetCore6.DTOs;
+using JobNetCore6.DTOs.Request;
+using JobNetCore6.DTOs.Respone;
 
 namespace JobNetCore6.Service
 {
@@ -7,7 +10,7 @@ namespace JobNetCore6.Service
     {
         Task<CategoryDTO> GetByIdAsync(int id);
         Task<IEnumerable<CategoryDTO>> GetAllAsync();
-        Task AddAsync(CategoryDTOSUa categoryDTO);
+        Task<ResponeCategory> AddAsync(ResquestCategoryAdd categoryDTO);
         Task UpdateAsync(CategoryDTO categoryDTO);
         public Task DeleteAsync(int id);
     }

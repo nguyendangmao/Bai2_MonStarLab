@@ -1,5 +1,7 @@
 ﻿using JobNetCore6.Core.Models;
+using JobNetCore6.DTOs.Request;
 using JobNetCore6.Entities;
+using Microsoft.AspNetCore.Routing;
 using Microsoft.EntityFrameworkCore;
 using Mysqlx;
 using Org.BouncyCastle.Asn1.Nist;
@@ -24,15 +26,17 @@ namespace JobNetCore6.Repository
             }
         }
 
-        public async Task AddAsync(Category category)
+        public async Task<Category> AddAsync(Category category)
         {
             _context.Categories!.Add(category);
             await _context.SaveChangesAsync();
+            return category;
         }
 
         public async Task<IEnumerable<Category>> GetAllAsync()
         {
             return await _context.Categories!.ToListAsync();
+            
         }
 
         public async Task<Category> GetByIdAsync(int id)
@@ -47,6 +51,6 @@ namespace JobNetCore6.Repository
             await _context.SaveChangesAsync();
         }
 
-       
+     
     }
 }

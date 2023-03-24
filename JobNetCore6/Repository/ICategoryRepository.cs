@@ -1,4 +1,5 @@
 ﻿using JobNetCore6.Core.Models;
+using JobNetCore6.DTOs.Respone;
 
 namespace JobNetCore6.Repository
 {
@@ -6,7 +7,7 @@ namespace JobNetCore6.Repository
     {
         Task<Category> GetByIdAsync(int id);
         Task<IEnumerable<Category>> GetAllAsync();
-        Task AddAsync(Category category);
+        Task<Category> AddAsync(Category category);
         Task UpdateAsync(Category category);
         public Task DeleteAsync(int id);
     }

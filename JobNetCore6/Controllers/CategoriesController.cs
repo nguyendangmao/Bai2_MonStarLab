@@ -1,4 +1,5 @@
 ﻿using JobNetCore6.DTOs;
+using JobNetCore6.DTOs.Request;
 using JobNetCore6.Entities;
 using JobNetCore6.Service;
 using Microsoft.AspNetCore.Authorization;
@@ -47,10 +48,10 @@ namespace JobNetCore6.Controllers
         /// <returns></returns>
         [HttpPost]
         //[Authorize(Roles = UserRoles.Admin)]
-        public async Task<IActionResult> AddAsync([FromBody] CategoryDTOSUa cateDtos)
+        public async Task<IActionResult> AddAsync([FromBody] ResquestCategoryAdd cateDtos)
         {
-            await _categoryService.AddAsync(cateDtos);
-            return Ok();
+          
+            return Ok(await _categoryService.AddAsync(cateDtos));
         }
         /// <summary>
         /// update 1 sản phẩm
@@ -82,17 +83,8 @@ namespace JobNetCore6.Controllers
 
             await _categoryService.DeleteAsync(id);
 
-            return Ok("Succes");
+            return Ok(product.Id);
 
-
-           
-            //var user = await _userService.GetByIdAsync(id);
-            //if (user == null)
-            //{
-            //    return NotFound();
-            //}
-            //await _userService.DeleteAsync(user);
-            //return NoContent();
         }
 
     }

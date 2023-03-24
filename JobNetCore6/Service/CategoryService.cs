@@ -1,6 +1,8 @@
 ﻿using AutoMapper;
 using JobNetCore6.Core.Models;
 using JobNetCore6.DTOs;
+using JobNetCore6.DTOs.Request;
+using JobNetCore6.DTOs.Respone;
 using JobNetCore6.Repository;
 
 namespace JobNetCore6.Service
@@ -16,15 +18,18 @@ namespace JobNetCore6.Service
             _mapper = mapper;
         }
 
-        public async Task AddAsync(CategoryDTOSUa categoryDTO)
+        public async Task<ResponeCategory> AddAsync(ResquestCategoryAdd categoryDTO)
         {
             var cate=_mapper.Map<Category>(categoryDTO);
-            await _categoryRepository.AddAsync(cate);
+            //await _categoryRepository.AddAsync(cate);
+            var abbc = _mapper.Map<ResponeCategory>(await _categoryRepository.AddAsync(cate));
+            return abbc;
         }
+       
 
         public async Task DeleteAsync(int id)
         {
-            var product = await _categoryRepository.GetByIdAsync(id);        
+            await _categoryRepository.DeleteAsync(id);        
         }
 
         public async Task<IEnumerable<CategoryDTO>> GetAllAsync()

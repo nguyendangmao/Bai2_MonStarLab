@@ -1,5 +1,6 @@
 ﻿using JobNetCore6.Core.Models;
 using JobNetCore6.DTOs;
+using JobNetCore6.DTOs.User;
 using JobNetCore6.Entities;
 using JobNetCore6.Service;
 using Microsoft.AspNetCore.Authorization;
@@ -70,9 +71,6 @@ namespace JobNetCore6.Controllers
         {
             await _jobservice.AddAsync(jobDtos);
             return Ok(jobDtos);
-            //await _userService.AddAsync(user);
-            //return CreatedAtAction(nameof(GetByIdAsync), new { id = user.Id }, user);
-
         }
         /// <summary>
         /// sua 1 task
@@ -87,14 +85,6 @@ namespace JobNetCore6.Controllers
         {
             await _jobservice.UpdateAsync(jobDto);
             return Ok(jobDto);
-
-
-        //    if (id != user.Id)
-        //    {
-        //        return BadRequest();
-        //    }
-        //    await _userService.UpdateAsync(user);
-        //    return NoContent();
         }
         /// <summary>
         /// sua nhieu task
@@ -122,17 +112,7 @@ namespace JobNetCore6.Controllers
         public async Task<IActionResult> DeleteAsync(int idJob)
         {
             await _jobservice.DeleteAsync(idJob);
-            return Ok("success");
-
-
-
-            //var user = await _userService.GetByIdAsync(id);
-            //if (user == null)
-            //{
-            //    return NotFound();
-            //}
-            //await _userService.DeleteAsync(user);
-            //return NoContent();
+            return Ok(idJob);
         }
 
 
@@ -142,7 +122,7 @@ namespace JobNetCore6.Controllers
         public async Task<IActionResult> AddlistJob(IEnumerable<JobDTO> jobDto)
         {
             await  _jobservice.AddListJob(jobDto);
-            return Ok(jobDto);
+            return Ok("succsec");
         }
     }
 }

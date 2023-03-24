@@ -4,8 +4,8 @@ namespace JobNetCore6.DTOs
 {
     public class CategoryDTOSUa
     {
-        [Required(ErrorMessage = "Product description is required.")]
-        [MaxLength(5, ErrorMessage = "Product description must not exceed 500 characters.")]
+        [Required(ErrorMessage = "Categories description is required.")]
+        [MaxLength(50, ErrorMessage = "Categories description must not exceed 50 characters.")]
 
         public string? Name { get; set; }
     }
